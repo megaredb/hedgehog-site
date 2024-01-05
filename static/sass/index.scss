@@ -1,0 +1,18 @@
+.content {
+
+}
+
+.books {
+    position: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 100%;
+    column-gap: 15px;
+}
+
+.book {
+    display: list-item;
+    img {
+        width: 100%;
+    }
+}

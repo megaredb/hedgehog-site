@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "hedgehog"
+version = "0.1.0"
+description = ""
+authors = ["megared <mredikf@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.107.0"
+uvicorn = { version = "^0.25.0",  extras = ["standard"] }
+jinja2 = "^3.1.2"
+pydantic = "^2.5.3"
+sqlalchemy = "^2.0.23"
+alembic = "^1.13.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

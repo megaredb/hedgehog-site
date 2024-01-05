@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HEDGEHOG.INC - {% block title required %}{% endblock %}</title>
+    <link href="{{ url_for('static', path='/css/styles.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', path='/js/base.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='/images/favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <header>
+        <div class="background"></div>
+        <div class="logo">
+            <img class="logo-img" src="{{ url_for('static', path='/images/logo.jpg') }}">
+            <div class="header-text">HEDGEHOG.INC</div>
+        </div>
+        <nav class="navbar">
+            <ul class="nav-items">
+                <li class="nav-mobile"></li>
+                <li><a href="#" class="header-text link nav-text">Контакты</a></li>
+                <div class="breakline"></div>
+                <li><a href="#" class="header-text link nav-text">Помощь автору</a></li>
+            </ul>
+        </nav>
+        <div class="menu">
+            <input class="menu-checkbox" type="checkbox" />
+            <div class="ham-lines">
+                <div class="ham-line ham-line-1"></div>
+                <div class="ham-line ham-line-2"></div>
+                <div class="ham-line ham-line-3"></div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="blur"></div>{% block content required %}{% endblock %}
+    </main>
+</body>
+
+</html>
