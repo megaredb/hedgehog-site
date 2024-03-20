@@ -1,0 +1,36 @@
+{% macro init() %}
+    <div class="audioplayer" id="{{ tome.id }}">
+        <link href="{{ url_for('static', path='/css/audioplayer.css') }}" rel="stylesheet">
+        <script src="{{ url_for('static', path='/js/audioplayer.js') }}"></script>
+
+        <div id="chapter-info">
+            <a class="chapter-name">Выбранная глава</a>
+        </div>
+        <div id="control-panel">
+            <button id="play-btn"></button>
+            <button id="sound-control-btn"></button>
+            <button id="download-btn"></button>
+        </div>
+        <div id="chapter-list">
+            <select id="chapter-select" name="chapter-select" size="15">
+                <option value="0">Глава 1</option>
+                <option value="1">Глава 2</option>
+                <option value="2">Глава 3</option>
+                <option value="3">Глава 4</option>
+                <option value="4">Глава 5</option>
+                <option value="5">Глава 6</option>
+                <option value="6">Глава 7</option>
+                <option value="7">Глава 8</option>
+                <option value="8">Глава 9</option>
+                <option value="9">Глава 10</option>
+                <option value="10">Глава 11</option>
+                <option value="11">Глава 12</option>
+                <option value="12">Глава 13</option>
+                <option value="13">Глава 14</option>
+                <option value="14">Глава 15</option>
+                <option value="15">Глава 16</option>
+                <option value="16">Глава 17</option>
+            </select>
+        </div>
+    </div>
+{% endmacro %}
