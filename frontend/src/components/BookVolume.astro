@@ -1,0 +1,55 @@
+---
+import "@/styles/globals.css";
+const { title, volumeId } = Astro.props;
+---
+
+<style lang="scss">
+  .book-volume {
+    transition:
+      transform ease 0.2s,
+      filter ease 0.2s;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-origin: 50%;
+    filter: grayscale(0.4);
+
+    min-width: 13rem;
+
+    width: 15rem;
+    height: 15rem;
+
+    span {
+      background-color: rgba(245, 245, 245, 0.6);
+      backdrop-filter: blur(2px);
+    }
+  }
+
+  :hover {
+    transform: scale(1.05);
+    filter: grayscale(0);
+  }
+
+  @media (max-width: 768px) {
+    .book-volume {
+      width: 13rem;
+      height: 13rem;
+
+      span {
+        font-size: small;
+      }
+    }
+  }
+</style>
+
+<a
+  class="book-volume m-2 flex items-end justify-center rounded-lg bg-hedgehog-3 p-2 shadow-md shadow-black"
+  id={volumeId}
+  style={`background-image: url('/images/volumes/preview/${volumeId}.png')`}
+  href={`/volumes/${volumeId}`}
+>
+  <span
+    class="overflow-hidden text-ellipsis whitespace-nowrap rounded-lg bg-white px-2 text-center font-bold text-hedgehog-5 shadow-md shadow-black"
+  >
+    {title}
+  </span>
+</a>

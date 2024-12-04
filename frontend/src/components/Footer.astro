@@ -1,0 +1,52 @@
+---
+import { Image } from "astro:assets";
+---
+
+<style lang="scss">
+  footer {
+    box-shadow: 0 0.5em 0.5em 0.1em #000;
+  }
+
+  footer p,
+  footer a {
+    font-size: 1rem; // Default font size for larger screens
+  }
+
+  @media (max-width: 768px) {
+    footer {
+      box-shadow: 0 0.05em 0.5em 0.1em #000;
+      margin-left: -1rem;
+      margin-right: -1rem;
+    }
+
+    footer p,
+    footer a {
+      font-size: 0.875rem; // Smaller font size for tablets
+    }
+  }
+
+  @media (max-width: 480px) {
+    footer p,
+    footer a {
+      font-size: 0.75rem; // Even smaller font size for phones
+    }
+  }
+</style>
+
+<footer class="bottom-0 -mb-16 rounded-t-lg bg-hedgehog-3">
+  <div
+    class="start flex-basis mb-2 mt-2 flex place-items-center justify-evenly text-center text-sm font-semibold text-hedgehog-1"
+  >
+    <div class="flex flex-col">
+      <p class="text-base font-bold">Информация о сайте:</p>
+      <p>Автор контента: HEDGEHOG.INC</p>
+      <p>2024, by megared</p>
+    </div>
+    <div class="flex flex-col">
+      <p class="text-base font-bold">Соц. сети:</p>
+      <a href="https://discord.gg/VqmnmJ9dVh">Discord</a>
+      <a href="https://t.me/Mushoku_Tensei_AudioBook">Telegram</a>
+      <a href="https://vk.com/hedgehoginc">VK</a>
+    </div>
+  </div>
+</footer>

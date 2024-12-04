@@ -1,0 +1,25 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import BookVolume from "@/components/BookVolume.astro";
+---
+
+<BaseLayout title="Главная">
+  <div class="text-center text-hedgehog-5">
+    <div class="rounded-lg bg-hedgehog-1">
+      <h1 class="text-2xl font-bold">
+        Аудиокнига
+        <br />
+        Реинкарнация безработного
+      </h1>
+      <h2 class="text-xl font-semibold">Автор: HEDGEHOG.INC</h2>
+    </div>
+
+    <div id="oldBookVolumes" class="mt-8 flex flex-wrap justify-center">
+      <BookVolume title="Том 1: Младенчество" , volumeId="1" />
+      <BookVolume title="Том 2: Учитель" , volumeId="2" />
+      <BookVolume title="Том 3: Авантюрист" , volumeId="3" />
+      <BookVolume title="Том 4: Странствие" , volumeId="4" />
+      <BookVolume title="Том 5: Воссоединение" , volumeId="5" />
+    </div>
+  </div>
+</BaseLayout>

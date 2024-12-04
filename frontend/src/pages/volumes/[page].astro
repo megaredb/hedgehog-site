@@ -1,0 +1,109 @@
+---
+import type { GetStaticPathsOptions } from "astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getVolumeImage } from "@/lib/utils";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
+  const volumes = await getCollection("volumes");
+
+  return paginate(volumes, { pageSize: 1 });
+}
+
+const { page } = Astro.props;
+---
+
+<style lang="scss">
+  #pagination-buttons {
+    a {
+      transition: transform ease 0.2s;
+
+      border-radius: calc(var(--radius) - 4px);
+
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-top: 0.375rem;
+      padding-bottom: 0.375rem;
+
+      width: auto;
+      height: auto;
+
+      @apply bg-hedgehog-0 shadow-md shadow-black;
+
+      &:not([href]) {
+        background-color: rgba(whitesmoke, 0.2);
+
+        @apply shadow-none;
+
+        &:hover {
+          transform: none;
+        }
+      }
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  #audio-player {
+    ul {
+      scrollbar-width: thin;
+
+      @apply rounded-sm shadow-sm shadow-black;
+
+      li {
+        @apply bg-hedgehog-0 p-1 shadow-sm shadow-black;
+      }
+    }
+  }
+</style>
+
+<BaseLayout title={page.data[0].data.title}>
+  <div class="rounded-lg bg-hedgehog-1 p-4">
+    <h1 class="mb-4 w-full text-center text-xl font-bold">
+      {page.data[0].data.title}
+    </h1>
+    <div class="flex flex-wrap justify-center gap-4">
+      <img
+        src={getVolumeImage(page.data[0].data.id)}
+        class="w-64 rounded-sm shadow-md shadow-black"
+        id="volume-image"
+      />
+      <div
+        id="audio-player"
+        class="max-h-full min-w-80 flex-grow rounded-sm bg-hedgehog-0 p-3 shadow-md shadow-black"
+      >
+        <ul class="max-h-96 overflow-y-scroll">
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+          <li>Глава 1</li>
+        </ul>
+      </div>
+      <div id="pagination-buttons" class="mt-4 flex w-full justify-between">
+        <a href={page.url.prev}>Назад</a>
+        <a href={page.url.next}>Вперед</a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
