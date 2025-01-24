@@ -12,3 +12,10 @@ export function getVolumePreview(volumeId: number): string {
 export function getVolumeImage(volumeId: number): string {
   return `/images/volumes/${volumeId}.png`;
 }
+
+export type VolumeData = {
+  id: number;
+  title: string;
+  chapters: { title: string; uri: string }[];
+  pictures: string[];
+};

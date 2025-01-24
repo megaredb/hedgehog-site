@@ -42,13 +42,14 @@ const { title, volumeId } = Astro.props;
 </style>
 
 <a
-  class="book-volume m-2 flex items-end justify-center rounded-lg bg-hedgehog-3 p-2 shadow-md shadow-black"
+  class="book-volume m-2 flex items-end justify-center rounded-lg bg-hedgehog-3 p-2 shadow-md shadow-hedgehog-5"
   id={volumeId}
   style={`background-image: url('/images/volumes/preview/${volumeId}.png')`}
   href={`/volumes/${volumeId}`}
 >
   <span
-    class="overflow-hidden text-ellipsis whitespace-nowrap rounded-lg bg-white px-2 text-center font-bold text-hedgehog-5 shadow-md shadow-black"
+    class="overflow-hidden text-ellipsis whitespace-nowrap
+    rounded-lg bg-white px-2 text-center font-bold text-hedgehog-5 shadow-md shadow-hedgehog-5"
   >
     {title}
   </span>

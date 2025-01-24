@@ -2,6 +2,14 @@
   "id": 2,
   "title": "Том 2: Учитель",
   "pictures": [],
-  "image": "./2.png",
-  "previewImage": "./preview/2.png"
+  "chapters": [
+    {
+      "title": "Глава 1",
+      "uri": "/audios/1/1.mp3"
+    },
+    {
+      "title": "Глава 2",
+      "uri": "/audios/1/1.mp3"
+    }
+  ]
 }

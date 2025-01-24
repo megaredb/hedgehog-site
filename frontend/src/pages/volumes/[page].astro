@@ -4,6 +4,10 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import { getVolumeImage } from "@/lib/utils";
 import { getCollection } from "astro:content";
 
+import { Image } from "astro:assets";
+
+import AudioPlayer from "@/components/AudioPlayer.vue";
+
 export async function getStaticPaths({ paginate }: GetStaticPathsOptions) {
   const volumes = await getCollection("volumes");
 
@@ -28,7 +32,7 @@ const { page } = Astro.props;
       width: auto;
       height: auto;
 
-      @apply bg-hedgehog-0 shadow-md shadow-black;
+      @apply bg-hedgehog-0 shadow-md shadow-hedgehog-5;
 
       &:not([href]) {
         background-color: rgba(whitesmoke, 0.2);
@@ -46,18 +50,76 @@ const { page } = Astro.props;
     }
   }
 
-  #audio-player {
+  #chapters-list {
     ul {
       scrollbar-width: thin;
 
-      @apply rounded-sm shadow-sm shadow-black;
-
       li {
-        @apply bg-hedgehog-0 p-1 shadow-sm shadow-black;
+        transition: filter ease 0.1s;
+
+        &:hover {
+          filter: brightness(0.9);
+        }
+
+        > button {
+          transition: all ease 0.1s;
+
+          &:active {
+            transform: scale(0.9);
+          }
+        }
       }
     }
   }
+
+  img {
+    user-select: none;
+    user-drag: none;
+    -webkit-user-drag: none;
+  }
+
+  .chapter-item[data-selected="true"] {
+    background-color: whitesmoke;
+  }
 </style>
+
+<script define:vars={{ tomeData: page.data[0].data }} type="module">
+  import {
+    $currentTome,
+    $currentChapter,
+    $savedData,
+  } from "/src/components/AudioPlayer.ts";
+
+  $currentTome.set(tomeData);
+  {
+    let loadedData = $savedData.get()[$currentTome.get().id];
+    $currentChapter.set(loadedData ? loadedData.latestChapter : 0);
+  }
+
+  function updateSelectedChapter(value) {
+    document
+      .querySelector(`.chapter-item[data-id="${$currentChapter.get()}"]`)
+      .setAttribute("data-selected", value);
+  }
+
+  function selectChapter(event) {
+    let newId = parseInt(event.currentTarget.dataset.id);
+
+    if ($currentChapter.get() === newId) {
+      return;
+    }
+
+    updateSelectedChapter("false");
+    $currentChapter.set(newId);
+    updateSelectedChapter("true");
+  }
+
+  document.querySelectorAll(".chapter-item").forEach((chapter) => {
+    chapter.addEventListener("click", selectChapter);
+  });
+
+  updateSelectedChapter("true");
+</script>
 
 <BaseLayout title={page.data[0].data.title}>
   <div class="rounded-lg bg-hedgehog-1 p-4">
@@ -67,39 +129,32 @@ const { page } = Astro.props;
     <div class="flex flex-wrap justify-center gap-4">
       <img
         src={getVolumeImage(page.data[0].data.id)}
-        class="w-64 rounded-sm shadow-md shadow-black"
+        class="w-64 rounded-sm shadow-md shadow-hedgehog-5"
         id="volume-image"
+        alt="Volume"
       />
       <div
-        id="audio-player"
-        class="max-h-full min-w-80 flex-grow rounded-sm bg-hedgehog-0 p-3 shadow-md shadow-black"
+        id="chapters-list"
+        class="max-h-full min-w-80 flex-grow rounded-sm bg-hedgehog-0 p-3 shadow-md shadow-hedgehog-5"
       >
-        <ul class="max-h-96 overflow-y-scroll">
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
-          <li>Глава 1</li>
+        <ul
+          class="h-96 overflow-y-scroll rounded-sm shadow-sm shadow-hedgehog-5"
+        >
+          {
+            page.data[0].data.chapters.map((chapter, index) => (
+              <li
+                class="chapter-item h-7 content-center items-center bg-hedgehog-0 shadow-sm shadow-hedgehog-5"
+                data-id={index}
+              >
+                <button class="w-full">{chapter.title}</button>
+              </li>
+            ))
+          }
         </ul>
       </div>
+
+      <AudioPlayer client:only />
+
       <div id="pagination-buttons" class="mt-4 flex w-full justify-between">
         <a href={page.url.prev}>Назад</a>
         <a href={page.url.next}>Вперед</a>

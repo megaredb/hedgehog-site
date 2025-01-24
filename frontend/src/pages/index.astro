@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import BookVolume from "@/components/BookVolume.astro";
+import { getCollection } from "astro:content";
+
+const volumes = await getCollection('volumes');
 ---
 
 <BaseLayout title="Главная">
@@ -14,12 +17,15 @@ import BookVolume from "@/components/BookVolume.astro";
       <h2 class="text-xl font-semibold">Автор: HEDGEHOG.INC</h2>
     </div>
 
-    <div id="oldBookVolumes" class="mt-8 flex flex-wrap justify-center">
-      <BookVolume title="Том 1: Младенчество" , volumeId="1" />
-      <BookVolume title="Том 2: Учитель" , volumeId="2" />
-      <BookVolume title="Том 3: Авантюрист" , volumeId="3" />
-      <BookVolume title="Том 4: Странствие" , volumeId="4" />
-      <BookVolume title="Том 5: Воссоединение" , volumeId="5" />
+    <div id="bookVolumes" class="mt-8 flex flex-wrap justify-center">
+      {
+        volumes.map((volume) => (
+          <BookVolume
+            title={volume.data.title}
+            volumeId={volume.data.id}
+          />
+        ))
+      }
     </div>
   </div>
 </BaseLayout>

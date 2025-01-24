@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import { loadEnv } from "vite";
 import tailwind from "@astrojs/tailwind";
-import react from "@astrojs/react";
+import vue from "@astrojs/vue";
 
 // https://astro.build/config
 export default defineConfig({
@@ -10,6 +10,6 @@ export default defineConfig({
       configFile: "./tailwind.config.mjs",
       applyBaseStyles: false,
     }),
-    react(),
+    vue(),
   ],
 });
